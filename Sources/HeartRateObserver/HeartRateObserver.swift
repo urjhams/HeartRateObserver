@@ -2,6 +2,15 @@ import HealthKit
 import Combine
 import SwiftUI
 
+public enum HeartRateObservingCommand: String {
+  case start
+  case stop
+  
+  public var value: String {
+    rawValue
+  }
+}
+
 public struct HeartRate: Hashable, Identifiable {
   public var id = UUID()
   public var value: Double
@@ -32,7 +41,7 @@ extension HeartRateObserver {
     healthStore = newHealthStore
     
     guard
-      let desiredType = [HKObjectType.quantityType(forIdentifier: .heartRate)] as? Set<HKSampleType>
+      let type = [HKObjectType.quantityType(forIdentifier: .heartRate)] as? Set<HKSampleType>
     else {
       return
     }
@@ -40,13 +49,12 @@ extension HeartRateObserver {
     isAvailable = true
     
     // request authorization to access heart rate data
-    newHealthStore
-      .requestAuthorization(toShare: desiredType, read: desiredType) { [weak self] success, error in
-        guard success, error == nil else {
-          self?.isAvailable = false
-          return
-        }
+    newHealthStore.requestAuthorization(toShare: type, read: type) { [weak self] success, error in
+      guard success, error == nil else {
+        self?.isAvailable = false
+        return
       }
+    }
     
     // process the queries
     process()

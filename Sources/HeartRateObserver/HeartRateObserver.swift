@@ -51,16 +51,14 @@ extension HeartRateObserver {
     let newHealthStore = HKHealthStore()
     healthStore = newHealthStore
     
-    guard
-      let type = [HKObjectType.quantityType(forIdentifier: .heartRate)] as? Set<HKQuantityType>
-    else {
+    guard let type = HKObjectType.quantityType(forIdentifier: .heartRate) else {
       return
     }
     
     isAvailable = true
     
     // request authorization to access heart rate data
-    newHealthStore.requestAuthorization(toShare: type, read: type) { [weak self] success, error in
+    newHealthStore.requestAuthorization(toShare: [type], read: [type]) { [weak self] success, error in
       guard success, error == nil else {
         self?.isAvailable = false
         return

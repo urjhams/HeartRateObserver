@@ -52,7 +52,7 @@ extension HeartRateObserver {
     healthStore = newHealthStore
     
     guard
-      let type = [HKObjectType.quantityType(forIdentifier: .heartRate)] as? Set<HKSampleType>
+      let type = [HKObjectType.quantityType(forIdentifier: .heartRate)] as? Set<HKQuantityType>
     else {
       return
     }

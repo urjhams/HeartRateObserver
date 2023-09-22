@@ -13,7 +13,7 @@ public enum HeartRateObservingCommand: String {
   }
 }
 
-public struct HeartRate: Hashable, Identifiable {
+public struct HeartRate: Hashable, Identifiable, Codable {
   public static let messageIdentifier = "com.HeartRateObserver.heartRate"
   public var id = UUID()
   public var value: Double

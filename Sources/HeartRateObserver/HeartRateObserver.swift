@@ -6,6 +6,8 @@ public enum HeartRateObservingCommand: String {
   case start
   case stop
   
+  public static let messageIdentifier = "com.HeartRateObserver.message"
+  
   public var value: String {
     rawValue
   }

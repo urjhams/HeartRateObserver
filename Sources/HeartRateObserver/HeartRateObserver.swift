@@ -18,6 +18,10 @@ public struct HeartRate: Hashable, Identifiable {
   public var id = UUID()
   public var value: Double
   public var date: Date
+  
+  public var int: Int {
+    Int(value)
+  }
 }
 
 public final class HeartRateObserver: NSObject, ObservableObject {

@@ -22,6 +22,10 @@ public struct HeartRate: Hashable, Identifiable, Codable {
   public var int: Int {
     Int(value)
   }
+  
+  public var data: Data? {
+    try? JSONEncoder().encode(self)
+  }
 }
 
 public final class HeartRateObserver: NSObject, ObservableObject {
